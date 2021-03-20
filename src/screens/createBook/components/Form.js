@@ -1,264 +1,168 @@
-import React, { useState, useEffect } from 'react';
-import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import {MDBCol, MDBRow, MDBContainer} from 'mdbreact'
+import './style.css'
 
-const Form = () => {
+//Validation Conditions
+const required = value => value ? undefined : 'Required'
+
+const maxLength = (max,type) => value =>
+value && value.length > max ? `Must be ${max} ${type} or less` : undefined
+
+const minLength = (min,type) => value =>
+value && value.length < min ? `Must be ${min} ${type} or more` : undefined
+
+
+const publisherCond = value =>
+  value && !/[A-Z]$/i.test(value) ?
+    'Only characters from Aa to Zz accepted' : undefined
+
+const descriptionCond = value =>
+  value && !/^[A-Z]/gm.test(value) ?
+    'First letter must be uppercase' : undefined
+
+const authorCond = value =>
+  value && !/^([A-Z][-a-z]*(?:\s+[A-Z][a-z]*))?$/gm.test(value) ?
+    'Accepted Name example Pete Lee' : undefined
+
+const titleCond = value =>
+  value && !/^[A-Z@”#&*!]+$/gmi.test(value) ?
+    'Only character from Aa-Zz and @”#&*! accepted' : undefined
+
+    const categoryCond = value =>
+  value && !/^[^,]+(?:,[^,]+){0,3}$/.test(value) ?
+    'Max only 4 categories seperated by comma' : undefined
+
+
+      const yearCond = value =>
+      value && !/^[0-9]{4}$/gm.test(value) ?
+        'Must be 4 digits' : undefined
+
+      const pagesCond = value =>
+      value && !/^[0-9]{0,4}$/gm.test(value) ?
+        'Max 4 digits' : undefined
+
+      const isbn13Cond = value =>
+      value && !/^[0-9]{13}$/gm.test(value) ?
+        'Must be 13 digits' : undefined
+
+      const isbn10Cond = value =>
+      value && !/^[0-9]{10}$/gm.test(value) ?
+        'Must be 10 digits' : undefined
+     
+//Each field input 
     
-    const [formData, setFormData] = useState({ title: '', description: '', categories: '', author: '', publisher: '', year:'', numberOfpages:'', isbn10:'', isbn13:'' });
-    const [errorMsg, setErrorMsg] = useState({ title: '', description: '', categories: '', author: '', publisher: '', year:'', numberOfpages:'', isbn10:'', isbn13:'' });
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+    <div >
+      
+     { !(label==="First Author Name" ||  label==="Second Author Name" || label==="Third Author Name") && <label className="control-label  text-left" >{label}</label>}
+     { (label==="First Author Name" ) && <label className="control-label  text-left" > Authors</label>}
+     
+     { ( label==="Second Author Name"|| label==="Third Author Name") && <label className="control-label  text-left" > &nbsp;</label>}
+     
+        <input {...input} placeholder={label} type={type} style={{fontSize:'smaller'}} className="form-control text-center"></input> 
+        {touched && ((error && <span className="text-danger position-absolute">{error}</span>) || (warning && <span>{warning}</span>))}
+      
+    </div>
+  )
 
+let FormCode = props => {
+  const { handleSubmit, pristine, submitting } = props;
 
-    useEffect(() => {
-        console.log(errorMsg)
-    }, [errorMsg]);
-    
+  return (
+    <form className="set-fonts" onSubmit={ handleSubmit }>
+      <MDBContainer  className="form-group w-100 " >
 
-    const submitHandler = event => {
-    event.preventDefault();
-  
-    event.target.className += " was-validated";
-  };
-
-  const changeHandler = event => {
-    validationHandler(event);
-    setFormData({ [event.target.name]: event.target.value });
-    
-  };
-
-  const validationHandler = event => {
-      console.log(event.target.name==="title")
-      console.log(event.target.value.length < 10)
-      //Title Validation
-    if(event.target.name==="title"){
-        if(event.target.value.length<1){
-        setErrorMsg({...errorMsg, title:"Cannot be empty"})
-
-        }
-    else if(event.target.value.length < 10 || event.target.value.length > 120){
-        
-        setErrorMsg({...errorMsg, title:"Title cannot be less than 10 characters and more than 120"})
-
-    }
-    }
-  };
-
-    return (
+      <MDBRow> 
+      <MDBCol>
       <div>
-        <form
-          className="needs-validation"
-          onSubmit={submitHandler}
-          noValidate
-        >
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterTitle"
-                className="grey-text"
-              >
-                Title
-              </label>
-              <input
-                defaultValue={formData.title}
-                name="title"
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterTitle"
-                className="form-control"
-                placeholder="Title"
-                required
-                noValidate
-              />
-              <div className="invalid-feedback"> {errorMsg.title}  </div>
-            <div className="valid-feedback"></div>
-             
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterDescription"
-                className="grey-text"
-              >
-                Description
-              </label>
-              <input
-                defaultValue={formData.description}
-                name="description"
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterDescription"
-                className="form-control"
-                placeholder="Description"
-                required
-              />
-              <div className="invalid-feedback">
-                {errorMsg.description}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterCategories"
-                className="grey-text"
-              >
-                Categories
-              </label>
-              <input
-                defaultValue={formData.categories}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterCategories"
-                className="form-control"
-                name="categories"
-                placeholder="Categories"
-                required
-              />
-             <div className="invalid-feedback">
-             {errorMsg.categories}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-          </MDBRow>
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterAuthorNames"
-                className="grey-text"
-              >
-                Author Names
-              </label>
-              <input
-                defaultValue={formData.author}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterAuthorNames"
-                className="form-control"
-                name="authornames"
-                placeholder="Author Names"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.author}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterPublisher"
-                className="grey-text"
-              >
-                Publisher
-              </label>
-              <input
-                defaultValue={formData.publisher}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterPublisher"
-                className="form-control"
-                name="publisher"
-                placeholder="Publisher"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.publisher}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterYear"
-                className="grey-text"
-              >
-                Year
-              </label>
-              <input
-                defaultValue={formData.year}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterYear"
-                className="form-control"
-                name="year"
-                placeholder="Year"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.year}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-          </MDBRow>
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterNumberOfPages"
-                className="grey-text"
-              >
-                Number of Pages
-              </label>
-              <input
-                defaultValue={formData.numberOfpages}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterNumberOfPages"
-                className="form-control"
-                name="numberofpages"
-                placeholder="Number of Pages"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.numberOfpages}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterISBN10"
-                className="grey-text"
-              >
-                ISBN-10
-              </label>
-              <input
-                defaultValue={formData.isbn10}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterISBN10"
-                className="form-control"
-                name="isbn10"
-                placeholder="ISBN-10"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.isbn10}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-            <MDBCol md="4" className="mb-3">
-            <label
-                htmlFor="defaultFormRegisterISBN13"
-                className="grey-text"
-              >
-                ISBN-13
-              </label>
-              <input
-                defaultValue={formData.isbn13}
-                onChange={changeHandler}
-                type="text"
-                id="defaultFormRegisterISBN13"
-                className="form-control"
-                name="isbn13"
-                placeholder="ISBN-13"
-                required
-              />
-              <div className="invalid-feedback">
-              {errorMsg.isbn13}
-              </div>
-              <div className="valid-feedback"></div>
-            </MDBCol>
-          </MDBRow>
-          <div className="text-center">
-          <MDBBtn  color="primary" type="submit">
-            Submit Form
-          </MDBBtn>
-          </div>
-        </form>
+        <Field  name="title" component={renderField} label="Title" validate={ [required, titleCond, minLength(10,"characters"), maxLength(120,"characters")] } />
       </div>
-    );
-  }
-  export default Form;
+      </MDBCol>
+
+      <MDBCol>
+      <div>
+        <Field name="categories" component={renderField} label="Categories" validate={ [required,categoryCond] }/>
+      </div>
+      </MDBCol>
+      </MDBRow>
+
+
+      <MDBRow className="mt-5"> 
+      <MDBCol  >
+      <div >
+        <Field name="firstAuthor" component={renderField} label="First Author Name" validate={ [required , authorCond] }/>
+      </div>
+      </MDBCol>
+      
+      <MDBCol >
+      <div >
+        <Field  name="secondAuthor" component={renderField} label="Second Author Name"validate={ [ authorCond]}/>
+      </div>
+      </MDBCol>
+
+      <MDBCol >
+      <div >
+        <Field  name="thirdAuthor" component={renderField} label="Third Author Name"validate={ [ authorCond]}/>
+      </div>
+      </MDBCol>
+      
+      <MDBCol md="6">
+      <div >
+        <Field name="publisher" component={renderField} label="Publisher" validate={ [required, publisherCond, minLength(5,"characters"), maxLength(60,"characters")]  }/>
+      </div>
+      </MDBCol>
+      </MDBRow > 
+
+
+      <MDBRow className="mt-5"> 
+      <MDBCol >
+      <div >
+        <Field name="description" component={renderField} label="Description" validate={ [required, descriptionCond, maxLength(512,"characters")] }/>
+      </div>
+      </MDBCol>
+      </MDBRow>
+
+
+      <MDBRow className="mt-5">
+      <MDBCol >
+      <div >
+        <Field name="year"  component={renderField} label="Year" validate={ [required, yearCond ] }/>
+      </div>
+      </MDBCol>
+
+      <MDBCol > 
+      <div  >
+        <Field  name="numberOfPages" component={renderField} label="Pages" validate={ [required, pagesCond ] }/>
+      </div>
+      </MDBCol>
+
+      <MDBCol> 
+      <div >
+      <Field name="isbn" component={renderField} label="ISBN 10" validate={ [required, isbn10Cond] }/>
+      </div>
+      </MDBCol>
+
+      <MDBCol > 
+      <div >
+      <Field name="isbn13" component={renderField} label="ISBN 13" validate={ [required, isbn13Cond ] }/>
+      </div>
+      </MDBCol>
+      </MDBRow >
+
+      <div className="text-center mt-5">
+        <button type="submit" disabled={pristine || submitting} className="btn btn-primary">Submit</button>
+      </div>
+
+      </MDBContainer>
+    </form>
+    
+  )
+}
+FormCode = reduxForm({
+  form: 'createBook'
+  
+})(FormCode);
+
+export default FormCode;
+

@@ -8,14 +8,13 @@ const renderBooksList = (data, query) => {
   if (isEmpty(data)) {
     return null;
   }
-  let { items: books, totalItems } = data;
-  console.log(data)
+  let { data: books } = data;
+  
   return (
     <>
       <h3>Search results for: {query}</h3>
-      <p>Total results: {totalItems}</p>
       <div className="books-list">
-        {books.map(book => <BookCard key={book.id} book={book} />)}
+        {books.books.map(book => <BookCard key={book.isbn} book={book} />)}
       </div>
     </>
   )
@@ -23,11 +22,15 @@ const renderBooksList = (data, query) => {
 
 const Books = ({ data, isFetching, query, error }) => {
   let jsxStr = ''
-    
+   
   if (isFetching) {
     jsxStr = <p>Loading...</p>
   } else if (!isEmpty(error) && !isEmpty(query)) {
     jsxStr = JSON.stringify(error)
+  } else if ((!isEmpty(error) && isEmpty(query)) || (isEmpty(error) && isEmpty(query))) {
+    
+        jsxStr = renderBooksList(data, query);
+      
   } else {
     jsxStr = renderBooksList(data, query);
   }

@@ -1,10 +1,6 @@
-import MockAdapter from 'axios-mock-adapter'
-import axios from 'axios'
 
-const mock = new MockAdapter(axios)
-
-mock.onGet("/search").reply(200, {
-    books: [{
+  
+     {"books": [{
         "isbn": "9781593275846",
         "title": "Eloquent JavaScript, Second Edition",
         "subtitle": "A Modern Introduction to Programming",
@@ -91,6 +87,7 @@ mock.onGet("/search").reply(200, {
         "pages": 538,
         "description": "Design and build Web APIs for a broad range of clients—including browsers and mobile devices—that can adapt to change over time. This practical, hands-on guide takes you through the theory and tools you need to build evolvable HTTP services with Microsoft’s ASP.NET Web API framework. In the process, you’ll learn how design and implement a real-world Web API.",
         "website": "http://chimera.labs.oreilly.com/books/1234000001708/index.html"
-      }],
-  })
+      }]
+ 
    
+     }

@@ -1,5 +1,5 @@
 import { REQUEST_BOOKS, RECEIVE_BOOKS } from './actionTypes'
-
+import data from "../../api/data.json"
 const initialState = {
   query: '',
   isFetching: false,
@@ -7,7 +7,7 @@ const initialState = {
   error: ''
 }
 
-export const books = (state = initialState, action) => {
+ const books = (state = initialState, action) => {
   switch (action.type) {
     case REQUEST_BOOKS:
       return Object.assign({}, state, {
@@ -16,6 +16,7 @@ export const books = (state = initialState, action) => {
       })
     case RECEIVE_BOOKS:
       return Object.assign({}, state, {
+        
         isFetching: false,
         data: action.status === 'success' ? action.payload : initialState.data,
         error: action.status === 'error' ? action.payload : initialState.error
@@ -24,3 +25,4 @@ export const books = (state = initialState, action) => {
       return state;
   }
 }
+export default books;

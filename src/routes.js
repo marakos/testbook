@@ -10,7 +10,7 @@ export default (
   <BrowserRouter>
     
     <Route exact path="/" component={Home}/>
-    <Route path="/book/:ID" component={Book}/>
+    <Route exact path="/book/:ID" component={Book}/>
     <Route exact path="/create" component={CreateBook}/>
 
   </BrowserRouter>

@@ -1,41 +1,39 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getBooks } from '../actions'
 import debounce from 'lodash/debounce'
+import {  MDBCol, MDBIcon } from "mdbreact";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 const Search = ({ getBooks, query }) => {
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
-  }
+
+  //debounce: only invoke the callback after waiting for x ms from the last call.
   const debouncedGetBooks = debounce(query => {
     getBooks(query);
   }, 700);
 
  
   const onInputChange = e => {
-      
-         debouncedGetBooks(e.target.value)
-      
+        console.log(e.target.value)
+       debouncedGetBooks(e.target.value)
   }
 
   return (
     <div className="search-books">
-      <Form className="search-books--form" onSubmit={handleOnSubmit}>
-        <Form.Group controlId="formBasicEmail">
-          <Form.Control type="text" onChange={onInputChange} placeholder="Harry Potter, Food and Love" />
-          <Form.Text className="text-muted">
-            Search the world's most comprehensive index of full-text books.
-          </Form.Text>
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Search
-        </Button>
-      </Form>
+     <MDBIcon icon="search" className="text-center mb-4">  </MDBIcon>
+      <MDBCol  >
+      
+      <form className="form-inline md-4">
+      
+        <input onChange={onInputChange} className="form-control  ml-1 w-100" type="text" placeholder="Search your favorite book." aria-label="Search" />
+      </form>
+    </MDBCol>
+ 
     </div>
   )
 }
