@@ -2,27 +2,33 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 
+
 const BookCard = ({ book }) => {
-    console.log("e")
+    
   let {
+    isbn13,
     isbn,
     title,
-    subtitle,
-   
+    categories,
+    firstAuthor,
+    secondAuthor,
+    thirdAuthor,
+    year,
+    publisher,
+    numberOfPages,
+    description
     
   } = book;
  
   return (
     <div className="book">
+   
       <Card>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-
-          <Card.Subtitle>{subtitle}</Card.Subtitle>
-          <Card.Text className="book--description">{isbn}</Card.Text>
-          {/* <Card.Text className="book--description">{description}</Card.Text> */}
-          {/* <Card.Link href={infoLink} target="_blank" rel="noopener">Preview</Card.Link> */}
-           <Link className="book" to={`/book/${book.isbn}`}>View</Link> 
+          <Card.Subtitle>{firstAuthor}</Card.Subtitle>
+          <Card.Text className="book--description">{description}</Card.Text>
+           <Link className="book" to={`/book/${book.isbn13}`}>View</Link> 
         </Card.Body>
       </Card>
     </div>

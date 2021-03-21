@@ -8,13 +8,14 @@ const renderBooksList = (data, query) => {
   if (isEmpty(data)) {
     return null;
   }
-  let { data: books } = data;
   
+  console.log(typeof data)
   return (
     <>
       <h3>Search results for: {query}</h3>
       <div className="books-list">
-        {books.books.map(book => <BookCard key={book.isbn} book={book} />)}
+      
+        {data.books.map(book => <BookCard key={book.isbn13} book={book} />)}
       </div>
     </>
   )

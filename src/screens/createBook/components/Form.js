@@ -1,7 +1,10 @@
-import React from 'react';
+import React from 'react'
 import { Field, reduxForm } from 'redux-form';
 import {MDBCol, MDBRow, MDBContainer} from 'mdbreact'
 import './style.css'
+import {createNewBook, submitedNewBookForm} from '../actions';
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 //Validation Conditions
 const required = value => value ? undefined : 'Required'
@@ -23,10 +26,10 @@ const descriptionCond = value =>
 
 const authorCond = value =>
   value && !/^([A-Z][-a-z]*(?:\s+[A-Z][a-z]*))?$/gm.test(value) ?
-    'Accepted Name example Pete Lee' : undefined
+    'e.g. Firstname Lastname' : undefined
 
 const titleCond = value =>
-  value && !/^[A-Z@”#&*!]+$/gmi.test(value) ?
+  value && !/^[A-Z@”#&*!\s]+$/gmi.test(value) ?
     'Only character from Aa-Zz and @”#&*! accepted' : undefined
 
     const categoryCond = value =>
@@ -66,11 +69,11 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
     </div>
   )
 
-let FormCode = props => {
+let CreateNewBookForm = props => {
   const { handleSubmit, pristine, submitting } = props;
-
+ 
   return (
-    <form className="set-fonts" onSubmit={ handleSubmit }>
+    <form className="set-fonts" onSubmit={handleSubmit}>
       <MDBContainer  className="form-group w-100 " >
 
       <MDBRow> 
@@ -159,10 +162,18 @@ let FormCode = props => {
     
   )
 }
-FormCode = reduxForm({
-  form: 'createBook'
-  
-})(FormCode);
 
-export default FormCode;
+
+
+ CreateNewBookForm =  reduxForm({
+  form: 'createNewBook',
+  onSubmit:submitedNewBookForm
+})(CreateNewBookForm);
+
+
+
+export default CreateNewBookForm
+
+
+
 

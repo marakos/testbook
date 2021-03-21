@@ -19,7 +19,6 @@ const Search = ({ getBooks, query }) => {
 
  
   const onInputChange = e => {
-        console.log(e.target.value)
        debouncedGetBooks(e.target.value)
   }
 

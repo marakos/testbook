@@ -1,5 +1,5 @@
 import { REQUEST_BOOKS, RECEIVE_BOOKS } from './actionTypes'
-import data from "../../api/data.json"
+
 const initialState = {
   query: '',
   isFetching: false,
@@ -8,6 +8,7 @@ const initialState = {
 }
 
  const books = (state = initialState, action) => {
+  
   switch (action.type) {
     case REQUEST_BOOKS:
       return Object.assign({}, state, {
