@@ -1,10 +1,11 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import {MDBCol, MDBRow, MDBContainer} from 'mdbreact'
 import './style.css'
-import {createNewBook, submitedNewBookForm} from '../actions';
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
+import {submitedNewBookForm} from '../actions';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 //Validation Conditions
 const required = value => value ? undefined : 'Required'
@@ -14,7 +15,6 @@ value && value.length > max ? `Must be ${max} ${type} or less` : undefined
 
 const minLength = (min,type) => value =>
 value && value.length < min ? `Must be ${min} ${type} or more` : undefined
-
 
 const publisherCond = value =>
   value && !/[A-Z]$/i.test(value) ?
@@ -26,7 +26,7 @@ const descriptionCond = value =>
 
 const authorCond = value =>
   value && !/^([A-Z][-a-z]*(?:\s+[A-Z][a-z]*))?$/gm.test(value) ?
-    'e.g. Firstname Lastname' : undefined
+    'Firstname Lastname' : undefined
 
 const titleCond = value =>
   value && !/^[A-Z@”#&*!\s]+$/gmi.test(value) ?
@@ -35,7 +35,6 @@ const titleCond = value =>
     const categoryCond = value =>
   value && !/^[^,]+(?:,[^,]+){0,3}$/.test(value) ?
     'Max only 4 categories seperated by comma' : undefined
-
 
       const yearCond = value =>
       value && !/^[0-9]{4}$/gm.test(value) ?
@@ -68,6 +67,8 @@ const renderField = ({ input, label, type, meta: { touched, error, warning } }) 
       
     </div>
   )
+
+
 
 let CreateNewBookForm = props => {
   const { handleSubmit, pristine, submitting } = props;
@@ -156,21 +157,21 @@ let CreateNewBookForm = props => {
       <div className="text-center mt-5">
         <button type="submit" disabled={pristine || submitting} className="btn btn-primary">Submit</button>
       </div>
-
+      <ToastContainer autoClose={2000} />
       </MDBContainer>
     </form>
     
   )
 }
 
-
+const afterSubmit = (result, dispatch) =>
+  dispatch(reset('createNewBook'));
 
  CreateNewBookForm =  reduxForm({
   form: 'createNewBook',
-  onSubmit:submitedNewBookForm
+  onSubmit:submitedNewBookForm,
+  onSubmitSuccess: afterSubmit,
 })(CreateNewBookForm);
-
-
 
 export default CreateNewBookForm
 

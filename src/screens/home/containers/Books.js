@@ -5,11 +5,10 @@ import isEmpty from 'lodash/isEmpty'
 import BookCard from '../components/BookCard'
 
 const renderBooksList = (data, query) => {
-  if (isEmpty(data)) {
+  if (isEmpty(query)) {
     return null;
   }
   
-  console.log(typeof data)
   return (
     <>
       <h3>Search results for: {query}</h3>

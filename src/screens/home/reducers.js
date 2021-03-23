@@ -8,7 +8,7 @@ const initialState = {
 }
 
  const books = (state = initialState, action) => {
-  
+
   switch (action.type) {
     case REQUEST_BOOKS:
       return Object.assign({}, state, {
