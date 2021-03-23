@@ -6,16 +6,9 @@ import Card from 'react-bootstrap/Card'
 const BookCard = ({ book }) => {
     
   let {
-    isbn13,
-    isbn,
+    
     title,
-    categories,
     firstAuthor,
-    secondAuthor,
-    thirdAuthor,
-    year,
-    publisher,
-    numberOfPages,
     description
     
   } = book;

@@ -14,11 +14,11 @@ export const createNewBook = ({status, payload }) => ({
   const url = 'http://localhost:5000/books/create';
 
     try {
-     const res = await axios.post(url,values);
-     console.log(res)
+      await axios.post(url,values);
+     
      dispatch(createNewBook({
        status: 'success',
-       payload: values,
+       // payload: values, if we had to do something with those values
        
      }));
 

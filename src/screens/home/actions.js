@@ -26,7 +26,7 @@ export const getBooks = (query) => {
       
         dispatch(requestBooks(query));
         const url = 'http://localhost:5000/books';
-        const result = axios.get(url)
+        axios.get(url)
         
       try {
         const response = await axios.get(url)

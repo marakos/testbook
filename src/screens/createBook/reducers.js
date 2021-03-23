@@ -1,22 +1,12 @@
 import { CREATE_BOOK } from './actionTypes'
 
-const initialState = {
-  
-  data: {},
-  error: '',
-}
 
- const createNewBook = (state = initialState, action) => {
+
+ const createNewBook = (state = {}, action) => {
   
   switch (action.type) {
     case CREATE_BOOK:
-      return Object.assign({}, state, {
-        // ({...data,books: [...data.books,action.payload]})
-        data: action.status === 'success' ?  action.payload:initialState.data,
-        
-        error: action.status === 'error' ? action.payload : initialState.error
-
-  })
+      return {}
     default:
       return state;
   }

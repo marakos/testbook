@@ -47,11 +47,12 @@ router.get('/:id', (req ,res) =>{
             console.log('Error reading file:',err)
             return
         }else{
-     console.log(id)       
-   const book ={"title":"Title test test","categories":"test","firstAuthor":"Test Test","publisher":"Test Pub","description":"Aasdsdf sgffsdf sfgsdgsdg sgsdgsg","year":"1111","numberOfPages":"1111","isbn":"1114214532","isbn13":"2225325235235"}
-    console.log(typeof book)
-   res.status(200).json(book);
+                var obj = JSON.parse(buf);        
+                const book = obj.books.find(obj => obj.isbn13===id);
+               res.status(200).json(book);
         }
+       
+    
     })
 });
 

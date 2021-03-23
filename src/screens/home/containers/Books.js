@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 import BookCard from '../components/BookCard'
 
 const renderBooksList = (data, query) => {
-  if (isEmpty(query)) {
+  if (isEmpty(query)||isEmpty(data)) {
     return null;
   }
   
