@@ -8,7 +8,6 @@ const BookCard = ({ book }) => {
   let {
     
     title,
-    firstAuthor,
     description
     
   } = book;
@@ -19,7 +18,6 @@ const BookCard = ({ book }) => {
       <Card>
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Subtitle>{firstAuthor}</Card.Subtitle>
           <Card.Text className="book--description">{description}</Card.Text>
            <Link className="book" to={`/book/${book.isbn13}`}>View</Link> 
         </Card.Body>

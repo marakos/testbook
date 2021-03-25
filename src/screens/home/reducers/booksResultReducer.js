@@ -1,19 +1,19 @@
-import { REQUEST_BOOKS, RECEIVE_BOOKS } from './actionTypes'
+import { REQUEST_BOOKS, RECEIVE_BOOKS } from '../actionTypes'
 
 const initialState = {
-  query: '',
+  query: [],
   isFetching: false,
   data: {},
   error: ''
 }
 
  const books = (state = initialState, action) => {
-
+  
   switch (action.type) {
     case REQUEST_BOOKS:
       return Object.assign({}, state, {
         isFetching: true,
-        query: action.query
+        query: ({...state.query,[action.query.name]:action.query.value })
       })
     case RECEIVE_BOOKS:
       return Object.assign({}, state, {

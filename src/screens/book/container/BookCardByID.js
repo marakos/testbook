@@ -4,6 +4,8 @@ import '../../book/book.css'
 import { connect } from 'react-redux'
 import _ from 'lodash';
 import axios from 'axios'
+import Card from 'react-bootstrap/Card'
+
 
 
 const GetBookByID = ({item})  => {
@@ -39,25 +41,35 @@ const GetBookByID = ({item})  => {
     
     if (!isEmpty(bookInfo)) {
       let {
-        title,
-        subtitle, 
-        description, 
-        author, 
+        title, 
+        description,
+        firstAuthor, 
+        secondAuthor,
+        thirdAuthor,
         publisher,
-        published, 
-        pages,  
-        
+        year, 
+        numberOfPages,  
+        isbn,
+        isbn13
       } = bookInfo;
       
-
        jsxStr = (
-        <div className="book-card">
-          <h1>{title} by {author}</h1>
-          <h2>{subtitle}</h2>
-          <h5>{description}</h5>
-          <h3>{publisher}  {published}</h3>
-          <h3>{pages}</h3>
-        </div>
+
+<div>
+         <Card className="w-50 m-auto"> 
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+         
+          <Card.Text > Authors: {firstAuthor}{ secondAuthor?', ':''} {secondAuthor} { thirdAuthor?',':''} {thirdAuthor}</Card.Text>
+          <Card.Text >Description: {description}</Card.Text>
+          <Card.Text >Published by: {publisher} in {year}</Card.Text>
+          <Card.Text >Number of Pages: {numberOfPages}</Card.Text>
+          <Card.Text >ISBN 10: {isbn}</Card.Text>
+          <Card.Text >ISBN 13: {isbn13}</Card.Text>
+        </Card.Body>
+      </Card>
+</div>
+
       )
     }
       return (
@@ -71,6 +83,7 @@ const GetBookByID = ({item})  => {
   
 
 const mapStateToProps = (state, params ) => {
+
     let item =state.books.data.books!==undefined ? _.find(state.books.data.books, ['isbn13' , params.params.ID]) : params.params.ID
     return{
      item
