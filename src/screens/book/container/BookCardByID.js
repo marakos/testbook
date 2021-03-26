@@ -43,9 +43,7 @@ const GetBookByID = ({item})  => {
       let {
         title, 
         description,
-        firstAuthor, 
-        secondAuthor,
-        thirdAuthor,
+        authors,
         publisher,
         year, 
         numberOfPages,  
@@ -58,14 +56,14 @@ const GetBookByID = ({item})  => {
 <div>
          <Card className="w-50 m-auto"> 
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
+          <Card.Title><b>{title}</b> </Card.Title>
          
-          <Card.Text > Authors: {firstAuthor}{ secondAuthor?', ':''} {secondAuthor} { thirdAuthor?',':''} {thirdAuthor}</Card.Text>
-          <Card.Text >Description: {description}</Card.Text>
-          <Card.Text >Published by: {publisher} in {year}</Card.Text>
-          <Card.Text >Number of Pages: {numberOfPages}</Card.Text>
-          <Card.Text >ISBN 10: {isbn}</Card.Text>
-          <Card.Text >ISBN 13: {isbn13}</Card.Text>
+          <Card.Text > <b>Authors:</b> {authors}</Card.Text>
+          <Card.Text ><b>Description:</b> {description}</Card.Text>
+          <Card.Text ><b>Published by:</b> {publisher} <b>in</b> {year}</Card.Text>
+          <Card.Text ><b>Number of Pages:</b> {numberOfPages}</Card.Text>
+          <Card.Text ><b>ISBN 10:</b> {isbn}</Card.Text>
+          <Card.Text ><b>ISBN 13:</b> {isbn13}</Card.Text>
         </Card.Body>
       </Card>
 </div>

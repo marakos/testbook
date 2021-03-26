@@ -14,9 +14,9 @@ console.log(data)
 
   return (
     <>
-      <h3>Results:</h3>
+      <h3> {data.books.length} Results</h3>
       <div className="books-list">
-      
+
         {data.books.map(book => <BookCard key={book.isbn13} book={book} />)}
       </div>
     </>
@@ -32,7 +32,7 @@ const Books = ({ data, isFetching, query, error }) => {
   } else if (!isEmpty(error)) {
     jsxStr = JSON.stringify(error)
   } else if (isEmpty(error) && isEmpty(data.books) && !isEmpty(query))  {
-    jsxStr = <h2> No Results Found</h2>
+    jsxStr = <h3> No Results Found</h3>
   } else {
     jsxStr = renderBooksList(data, query);
   }

@@ -30,6 +30,7 @@
     width: 25%;
     padding: 0 15px;
     margin-bottom: 30px;
+    display: flex;
   }
   .book--description {
     max-height: 140px;

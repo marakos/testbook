@@ -26,11 +26,22 @@ router.post('/create', (req ,res) =>{
             console.log('Error reading file:',err)
             return
         }
-    // increase customer order count by 1
+    var authors=data.firstAuthor
+    delete data.firstAuthor
+  if(data.secondAuthor!==undefined){
+    authors += ', '+data.secondAuthor
+    delete data.secondAuthor
+  }else if(data.thirdAuthor!==undefined){
+    authors += ', '+data.thirdAuthor
+    delete data.thirdAuthor
+  }
+    data.authors=authors
+    console.log(data)
     
     var obj = JSON.parse(buf);
     obj['books'].push(data);
     
+  
 
     fs.writeFile(`/Users/petemarakos/Documents/Bookstore/testbook/server/assets/data/mockedData.json`, JSON.stringify(obj), (err) => {
             if (err) console.log('Error writing file:', err)
