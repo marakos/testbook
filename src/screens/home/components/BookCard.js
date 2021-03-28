@@ -14,7 +14,7 @@ const BookCard = ({ book }) => {
  
   return (
     <div className="book">
-   
+  
       <Card>
         <Card.Body>
           <Card.Title>{title}</Card.Title>

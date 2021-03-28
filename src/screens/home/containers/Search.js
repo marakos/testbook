@@ -137,25 +137,6 @@ const handleToggleChange= e =>{
   )
 }
 
-// return (
-//   <div>
-//     <MDBFormInline >
-//       <MDBCol>
-//     <MDBIcon icon="search" className=" text-center w-100 mb-4">  </MDBIcon>
-
-//       <MDBInput onChange={onInputChange} className=" text-center  w-75 ml-5" type="text" placeholder="Search your favorite book by title" aria-label="Search" />
-//       <MDBBtn className="btn btn-primary text-center" onClick={handleToggleChange}>Advanced Search</MDBBtn>
-      
-//       {
-//         visibleComp && (<div> Hi</div>)
-//       }      
-//       </MDBCol>
-//     </MDBFormInline>
-//     </div>
-// )
-// }
-
-
 const mapStateToProps = (state /*, ownProps*/) => {
   return {
     query: state.books.query,

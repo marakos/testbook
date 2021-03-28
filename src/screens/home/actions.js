@@ -6,7 +6,7 @@ import {
 } from './actionTypes'
 
 
-   
+// Get Book - Search
 export const requestBooks = (query) => ({
   type: REQUEST_BOOKS,
   query
@@ -41,7 +41,7 @@ export const getBooks = (query) => {
 };
 }
 
-
+// Advanced Search 
 export const toggleVisibility=()=>({
   type: SHOW,
   

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty'
 import _ from 'lodash';
 import BookCard from '../components/BookCard'
+import {MDBContainer} from "mdbreact";
 
 const renderBooksList = (data, query) => {
 
 
-console.log(data)
+
   if ((_.values(query).every(_.isEmpty))||isEmpty(data)) {
     return null;
   }
@@ -15,16 +16,19 @@ console.log(data)
   return (
     <>
       <h3> {data.books.length} Results</h3>
-      <div className="books-list">
-
-        {data.books.map(book => <BookCard key={book.isbn13} book={book} />)}
+                <div className="books-list">
+        
+        
+        <MDBContainer className="book-card-container">
+             {data.books.map(book => 
+             <BookCard key={book.isbn13} book={book} />)}
+        </MDBContainer>
       </div>
     </>
   )
 }
 
 const Books = ({ data, isFetching, query, error }) => {
-  console.log(query)
   let jsxStr = ''
    
   if (isFetching) {
@@ -53,7 +57,6 @@ if(data.books!==undefined){
       (v, k) => new RegExp(v, 'i').test(o[k]
     )
   ))
-  console.log(result)
   data.books=result
  
 }
@@ -67,5 +70,5 @@ if(data.books!==undefined){
 
 export default connect(
   mapStateToProps,
-  null
+   null
 )(Books);
