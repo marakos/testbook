@@ -162,15 +162,15 @@ let CreateNewBookForm = props => {
     
   )
 }
-
+// Clear form after submit 
 const afterSubmit = (result, dispatch) =>
   dispatch(reset('createNewBook'));
 
- CreateNewBookForm =  reduxForm({
+ CreateNewBookForm =  React.memo( reduxForm({
   form: 'createNewBook',
   onSubmit:submitedNewBookForm,
   onSubmitSuccess: afterSubmit,
-})(CreateNewBookForm);
+})(CreateNewBookForm));
 
 export default CreateNewBookForm
 

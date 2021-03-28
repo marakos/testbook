@@ -7,7 +7,7 @@ import {MDBContainer} from "mdbreact";
 
 const renderBooksList = (data, query) => {
 
-
+//display books cards after search only if there are any params 
 
   if ((_.values(query).every(_.isEmpty))||isEmpty(data)) {
     return null;
@@ -51,6 +51,8 @@ const mapStateToProps = (state) => {
   let { data, isFetching, query, error } = state.books
 if(data.books!==undefined){
 
+
+  // Filter state with books with params from search
  const arr= data.books
   const result = arr.filter(o => 
     _.every(query, 
@@ -68,7 +70,7 @@ if(data.books!==undefined){
   }
 }
 
-export default connect(
+export default React.memo(connect(
   mapStateToProps,
    null
-)(Books);
+)(Books));

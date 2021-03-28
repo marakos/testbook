@@ -40,15 +40,13 @@ const handleToggleChange= e =>{
         <MDBIcon className="ml-1"icon="plus-circle"/>
         </MDBBtn>
         {
+
+        // advanced search Flag
+
         visibleComp && (
-          
-         
-    
        <MDBContainer className="bg-white">
         <MDBRow className="mb-1" sm="12">
   
-       
-
           <MDBCol lg="6">
           <div  className="input-group input-group-sm mb-3">
             <div className="input-group-prepend">
@@ -123,10 +121,7 @@ const handleToggleChange= e =>{
           </div>
         </MDBCol>
         </MDBRow>
-        
-       
-        
-       
+
        </MDBContainer>
         )
        }  
@@ -151,7 +146,7 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch)
 }
 
-export default connect(
+export default React.memo(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Search);
+)(Search));

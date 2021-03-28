@@ -6,7 +6,7 @@ import {
 } from './actionTypes'
 
 
-// Get Book - Search
+// Get Book  actions 
 export const requestBooks = (query) => ({
   type: REQUEST_BOOKS,
   query
@@ -17,6 +17,8 @@ export const receiveBooks = ({status, payload }) => ({
   status,
   payload
 })
+
+// Get book action creator  
 
 export const getBooks = (query) => {
     return async function (dispatch) {
@@ -41,12 +43,12 @@ export const getBooks = (query) => {
 };
 }
 
-// Advanced Search 
+// Advanced Search action
 export const toggleVisibility=()=>({
   type: SHOW,
   
 })
-
+// Advanced Search action creator
 export const showComp = () =>{
  
   return function(dispatch){

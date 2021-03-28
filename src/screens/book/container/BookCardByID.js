@@ -12,8 +12,10 @@ const GetBookByID = ({item})  => {
  
     const [bookInfo, setBookInfo] = useState({});
     const [isFetching, setIsFetching] = useState(false);
-    useEffect(() => {
 
+  // On refresh state is getting cleared and we call api to get book/:id from backend 
+  // api call only when state changes to undefined to minimize re renders 
+    useEffect(() => {
     if(typeof item==='string'){
       setIsFetching(true)
       const url = 'http://localhost:5000/books';
@@ -81,7 +83,7 @@ const GetBookByID = ({item})  => {
   
 
 const mapStateToProps = (state, params ) => {
-
+  // item is the specific book by id
     let item =state.books.data.books!==undefined ? _.find(state.books.data.books, ['isbn13' , params.params.ID]) : params.params.ID
     return{
      item
