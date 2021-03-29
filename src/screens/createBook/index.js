@@ -1,6 +1,6 @@
 import React from 'react';
 import './createBook.css'
-import Form from'./components/Form'
+import Form from'./containers/Form'
 
 const CreateBook = () => {  
   
