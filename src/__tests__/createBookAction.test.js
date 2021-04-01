@@ -2,7 +2,7 @@ import * as actions from '../../src/screens/createBook/actions'
 import * as types from '../../src/screens/createBook/actionTypes'
 
 describe('actions', () => {
-  it('should create an action to add a todo', () => {
+  it('should create an action to create a new book', () => {
     const status="success"
     const payload={}
     
