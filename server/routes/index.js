@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req ,res) =>{
 
-    fs.readFile(`/Users/petemarakos/Documents/Bookstore/testbook/server/assets/data/mockedData.json` ,"utf-8", (err, buf) => {
+    fs.readFile(`./assets/data/mockedData.json` ,"utf-8", (err, buf) => {
         if (err) {
             console.log('Error reading file:',err)
             return
@@ -21,7 +21,7 @@ router.get('/', (req ,res) =>{
 router.post('/create', (req ,res) =>{
     const data = req.body;
     
-    fs.readFile(`/Users/petemarakos/Documents/Bookstore/testbook/server/assets/data/mockedData.json` ,"utf-8", (err, buf) => {
+    fs.readFile(`./assets/data/mockedData.json` ,"utf-8", (err, buf) => {
         if (err) {
             console.log('Error reading file:',err)
             return
@@ -46,7 +46,7 @@ router.post('/create', (req ,res) =>{
     
   
 
-    fs.writeFile(`/Users/petemarakos/Documents/Bookstore/testbook/server/assets/data/mockedData.json`, JSON.stringify(obj), (err) => {
+    fs.writeFile(`./assets/data/mockedData.json`, JSON.stringify(obj), (err) => {
             if (err) console.log('Error writing file:', err)
         })
     })
@@ -56,7 +56,7 @@ router.post('/create', (req ,res) =>{
 
 router.get('/:id', (req ,res) =>{
     const id=req.params.id
-    fs.readFile(`/Users/petemarakos/Documents/Bookstore/testbook/server/assets/data/mockedData.json` ,"utf-8", (err, buf) => {
+    fs.readFile(`./assets/data/mockedData.json` ,"utf-8", (err, buf) => {
         if (err) {
             console.log('Error reading file:',err)
             return
