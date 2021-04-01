@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 //Validation Conditions
-const required = value => value ? undefined : ' Required'
+const required = value => value ? undefined : 'Required'
 
 const maxLength = (max,type) => value =>
 value && value.length > max ? `Max ${max} ${type}` : undefined
@@ -54,7 +54,8 @@ const titleCond = value =>
 //Each field input 
     
 const renderField = ({ input, label, type, meta: { touched, error } }) => (
-    <div className="input-group input-group-sm mb-3" >
+  <div className="mb-1">
+    <div className="input-group input-group-sm mb-2" >
       <div className="input-group-prepend " >
              { !(label==="First Author Name" ||  label==="Second Author Name" || label==="Third Author Name") && <span   className="input-group-text bg-white">{label}</span>}
              { (label==="First Author Name" ) && <span   className="input-group-text bg-white"> Authors</span>}
@@ -64,8 +65,10 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
             </div>
          
             <input {...input}  placeholder={label} type={type}  className="form-control text-center mr-1"></input> 
-             {touched && ((error && <span className="text-danger text-center d-inline m-auto">{error}</span>)) }
+             
 
+             </div>
+             {touched && ((error &&  <span className="text-danger text-center mb-1 m-auto">{error}</span>)) }
              </div>
   )
 
@@ -126,7 +129,7 @@ let CreateNewBookForm = props => {
       </MDBRow>
 
 
-      <MDBRow className="mt-1">
+      <MDBRow className="mt-2">
       <MDBCol lg="3">
       <div >
         <Field name="year"  component={renderField} label="Year" validate={ [required, yearCond ] }/>

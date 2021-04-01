@@ -26,17 +26,20 @@ router.post('/create', (req ,res) =>{
             console.log('Error reading file:',err)
             return
         }
+        
     var authors=data.firstAuthor
     delete data.firstAuthor
+   
   if(data.secondAuthor!==undefined){
     authors += ', '+data.secondAuthor
     delete data.secondAuthor
-  }else if(data.thirdAuthor!==undefined){
+  }
+  if(data.thirdAuthor!==undefined){
     authors += ', '+data.thirdAuthor
     delete data.thirdAuthor
   }
     data.authors=authors
-    console.log(data)
+    
     
     var obj = JSON.parse(buf);
     obj['books'].push(data);
